@@ -11,4 +11,4 @@
 |
 */
 
-Route::get('/{set?}', 'PackSortController@getCards');
+Route::get('/{set?}', 'PackGeneratorController@getPack');
