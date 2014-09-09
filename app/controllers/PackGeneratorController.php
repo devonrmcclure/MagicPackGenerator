@@ -46,12 +46,6 @@ class PackGeneratorController extends BaseController {
             $pack[] = $sortedSet['Common'][$randCard];
         }
 
-
-        foreach($pack as $card)
-        {
-            echo '<img src="http://manastack.com/cards/images/' . $card['set'] . '/' . $card['num'] . '.jpg" />';
-        }
-
         return View::make('index')
                 ->with('pack', $pack);
     }

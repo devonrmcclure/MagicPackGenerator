@@ -11,8 +11,8 @@
 
         <!-- CSS are placed here -->
         @section('head')
-        <link rel="stylesheet" href="{{ URL::asset('tb/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('tb/csss/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('csss/style.css') }}">
         @show
     </head>
 
