@@ -19,7 +19,7 @@ class PackGeneratorController extends BaseController {
         $sortedSet = $cards->sortedSet;
 
         // 1 in 8 chance of a pack having a mythic.
-        $rand = Rand(1,8);
+        $rand = Rand(1,7);
         // Add a mythic to the pack
         if($rand == 1)
         {
@@ -33,21 +33,60 @@ class PackGeneratorController extends BaseController {
         }
 
         // Add 3 uncommons to the pack
-        for($i = 0; $i < 3; $i++)
+        for($i = 0; $i < 3;)
         {
             $randCard = Rand(0, count($sortedSet['Uncommon'])-1);
-            $pack[] = $sortedSet['Uncommon'][$randCard];
+            $card = $sortedSet['Uncommon'][$randCard];
+
+            if(!in_array($card, $pack))
+            {
+                $pack[] = $card;
+                echo $i . '<br/>';
+                $i++;
+
+            } else {
+                echo 'dupe';
+                echo $i . '<br/>';
+            }
+
         }
 
         // Add 11 commons to the pack
-        for($i = 0; $i < 11; $i++)
+        for($i = 0; $i < 11;)
         {
             $randCard = Rand(0, count($sortedSet['Common'])-1);
-            $pack[] = $sortedSet['Common'][$randCard];
+            $card = $sortedSet['Common'][$randCard];
+
+            if(!in_array($card, $pack))
+            {
+                $pack[] = $card;
+                echo $i . '<br/>';
+                $i++;
+
+            } else {
+                echo 'dupe';
+                echo $i . '<br/>';
+            }
         }
 
         return View::make('index')
                 ->with('pack', $pack);
+/*
+                function checkDuplicate(&$pack, &$cardNames, $i, $randNum)
+                    {
+                        if(in_array($cardNames[$randNum], $pack))
+                        {
+                            //echo $cardNames[$randNum] . '-----<br />';
+                            $randNum = rand(0,count($cardNames)-1);
+                            $i - 1;
+                            checkDuplicate($pack, $cardNames, $i, $randNum);
+                        }
+                        else
+                        {
+                            $pack[$i] = $cardNames[$randNum];
+                            return $pack;
+                        }
+                }*/
     }
 
 }
