@@ -17,16 +17,17 @@ class PackGeneratorController extends BaseController {
         $cards->search($set, $cardsInSet);
         $cards->sort($cards->setCards);
         $sortedSet = $cards->sortedSet;
+        $pack = [];
 
         // 1 in 8 chance of a pack having a mythic.
         $rand = Rand(1,7);
         // Add a mythic to the pack
-        if($rand == 1 && $sortedSet['Mythic'] != 0)
+        if($rand == 1 && count($sortedSet['Mythic']) != 0)
         {
             $randCard = Rand(0, count($sortedSet['Mythic'])-1);
             $pack[] = $sortedSet['Mythic'][$randCard];
         // Add a rare to the pack
-        } else
+        } elseif(count($sortedSet['Rare']) != 0)
         {
             $randCard = Rand(0, count($sortedSet['Rare'])-1);
             $pack[] = $sortedSet['Rare'][$randCard];
@@ -37,6 +38,10 @@ class PackGeneratorController extends BaseController {
         {
             $randCard = Rand(0, count($sortedSet['Uncommon'])-1);
             $card = $sortedSet['Uncommon'][$randCard];
+            if(!$pack)
+            {
+                $pack[] = $card;
+            }
 
             if(!in_array($card, $pack))
             {
