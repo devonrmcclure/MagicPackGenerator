@@ -9,7 +9,7 @@ class PackGeneratorController extends BaseController {
      * @param  array $sortedSet The sorted set from PackSortController
      * @return [type]            [description]
      */
-    public function getPack($set = 'm13', $cardsInSet = 249)
+    public function getPack($set = 'm13', $cardsInSet = 295)
     {
         // TODO: Make sure no duplicates in pack
         // TODO: Add foils and allow duplicate if it's a foil
@@ -21,7 +21,7 @@ class PackGeneratorController extends BaseController {
         // 1 in 8 chance of a pack having a mythic.
         $rand = Rand(1,7);
         // Add a mythic to the pack
-        if($rand == 1)
+        if($rand == 1 && $sortedSet['Mythic'] != 0)
         {
             $randCard = Rand(0, count($sortedSet['Mythic'])-1);
             $pack[] = $sortedSet['Mythic'][$randCard];
@@ -41,18 +41,13 @@ class PackGeneratorController extends BaseController {
             if(!in_array($card, $pack))
             {
                 $pack[] = $card;
-                echo $i . '<br/>';
                 $i++;
-
-            } else {
-                echo 'dupe';
-                echo $i . '<br/>';
             }
 
         }
 
-        // Add 11 commons to the pack
-        for($i = 0; $i < 11;)
+        // Add commons to the pack for the remainder of the slots available
+        do
         {
             $randCard = Rand(0, count($sortedSet['Common'])-1);
             $card = $sortedSet['Common'][$randCard];
@@ -60,14 +55,11 @@ class PackGeneratorController extends BaseController {
             if(!in_array($card, $pack))
             {
                 $pack[] = $card;
-                echo $i . '<br/>';
-                $i++;
 
             } else {
                 echo 'dupe';
-                echo $i . '<br/>';
             }
-        }
+        } while(count($pack) < 15);
 
         return View::make('index')
                 ->with('pack', $pack);
