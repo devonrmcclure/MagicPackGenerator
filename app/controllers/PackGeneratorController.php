@@ -20,7 +20,7 @@ class PackGeneratorController extends BaseController {
         $pack = [];
 
         // 1 in 8 chance of a pack having a mythic.
-        $rand = Rand(1,7);
+        $rand = Rand(1,8);
         // Add a mythic to the pack
         if($rand == 1 && count($sortedSet['Mythic']) != 0)
         {
@@ -61,29 +61,11 @@ class PackGeneratorController extends BaseController {
             {
                 $pack[] = $card;
 
-            } else {
-                echo 'dupe';
             }
         } while(count($pack) < 15);
 
         return View::make('index')
                 ->with('pack', $pack);
-/*
-                function checkDuplicate(&$pack, &$cardNames, $i, $randNum)
-                    {
-                        if(in_array($cardNames[$randNum], $pack))
-                        {
-                            //echo $cardNames[$randNum] . '-----<br />';
-                            $randNum = rand(0,count($cardNames)-1);
-                            $i - 1;
-                            checkDuplicate($pack, $cardNames, $i, $randNum);
-                        }
-                        else
-                        {
-                            $pack[$i] = $cardNames[$randNum];
-                            return $pack;
-                        }
-                }*/
     }
 
 }
