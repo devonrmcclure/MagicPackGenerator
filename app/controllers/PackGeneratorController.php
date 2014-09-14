@@ -20,34 +20,37 @@ class PackGeneratorController extends BaseController {
         $pack = [];
 
         // 1 in 6 chance of a pack having a foil.
-        $foil = Rand(1,6);
-        if($foil == 1)
+        // TODO: Allow there to be 2 of the same uncommon/common if one is a foil
+        if($set != '')
         {
-            echo 'foil';
-           $foilMythic = Rand(1,16);
-           $foilRare = Rand(1,12);
-           $foilUncommon = Rand(1,10);
-           // Foil Mythic
-           if($foilMythic == 1 && count($sortedSet['Mythic']) != 0)
-           {
-                $randCard = Rand(0, count($sortedSet['Mythic'])-1);
-                $pack[] = $sortedSet['Mythic'][$randCard];
+            $foil = Rand(1,6);
+            if($foil == 1)
+            {
+                echo 'foil';
+               $foilMythic = Rand(1,12);
+               $foilRare = Rand(1,9);
+               $foilUncommon = Rand(1,6);
+               // Foil Mythic
+               if($foilMythic == 1 && count($sortedSet['Mythic']) != 0)
+               {
+                    $randCard = Rand(0, count($sortedSet['Mythic'])-1);
+                    $pack[] = $sortedSet['Mythic'][$randCard];
 
-           } elseif($foilRare == 1 && count($sortedSet['Rare']) != 0)
-           {
-                $randCard = Rand(0, count($sortedSet['Rare'])-1);
-                $pack[] = $sortedSet['Rare'][$randCard];
+               } elseif($foilRare == 1 && count($sortedSet['Rare']) != 0)
+               {
+                    $randCard = Rand(0, count($sortedSet['Rare'])-1);
+                    $pack[] = $sortedSet['Rare'][$randCard];
 
-           } elseif($foilUncommon == 1)
-           {
-                $randCard = Rand(0, count($sortedSet['Uncommon'])-1);
-                $pack[] = $sortedSet['Uncommon'][$randCard];
-           } else {
-                $randCard = Rand(0, count($sortedSet['Common'])-1);
-                $pack[] = $sortedSet['Common'][$randCard];
-           }
+               } elseif($foilUncommon == 1)
+               {
+                    $randCard = Rand(0, count($sortedSet['Uncommon'])-1);
+                    $pack[] = $sortedSet['Uncommon'][$randCard];
+               } else {
+                    $randCard = Rand(0, count($sortedSet['Common'])-1);
+                    $pack[] = $sortedSet['Common'][$randCard];
+               }
+            }
         }
-
 
         // 1 in 8 chance of a pack having a mythic.
         $rand = Rand(1,8);
