@@ -5,6 +5,6 @@
 @stop
     @section('content')
         @foreach($pack as $card)
-            <img src='http://manastack.com/cards/images/{{ $card['set'] }}/{{ $card['num'] }}.jpg' />
+            <img src='http://mtgimage.com/set/{{ $card['set'] }}/{{ rawurlencode($card['image']) }}.jpg' />
         @endforeach
     @stop
